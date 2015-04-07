@@ -1,8 +1,3 @@
---canvas = love.graphics.newCanvas(800, 728)
-canvas = love.graphics.newCanvas(800, 728)
-love.graphics.setCanvas( canvas )
---love.graphics.setCanvas()
-
 function love.load()
     paddle = love.graphics.newImage("paddle.png")
     ball = love.graphics.newImage("ball.png")

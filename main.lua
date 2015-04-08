@@ -10,7 +10,7 @@ function love.update(dt)
     if love.keyboard.isDown("down") then
         py1 = py1 + 1
     end
-    if love.keyboard.isUp("up") then
+    if love.keyboard.isDown("up") then
         py1 = py1 - 1
     end
 end

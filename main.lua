@@ -7,7 +7,7 @@ function love.load()
 end
 
 function love.update(dt)
-    keychange = 20
+    keychange = 5
     if love.keyboard.isDown("down") then
         py1 = py1 + keychange
     end

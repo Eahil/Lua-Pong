@@ -7,11 +7,12 @@ function love.load()
 end
 
 function love.update(dt)
+    keychange = 20
     if love.keyboard.isDown("down") then
-        py1 = py1 + 1
+        py1 = py1 + keychange
     end
     if love.keyboard.isDown("up") then
-        py1 = py1 - 1
+        py1 = py1 - keychange
     end
 end
 

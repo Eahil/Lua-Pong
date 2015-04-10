@@ -1,4 +1,9 @@
 function love.load()
+
+    scores = {}
+    scores.p1 = 0
+    scores.p2 = 0
+
     width, height = love.graphics.getDimensions()
     -- Ball
     ball = {}
@@ -19,7 +24,6 @@ function love.load()
     ball.ceiling_collide = true
     ball.floor = (height - 20)
     ball.ceiling = 0
-    ball.paddle_collide = false
 
     -- Paddle 
     paddle = {}
@@ -30,6 +34,12 @@ function love.load()
     paddle.y2 = 10
     paddle.width = 20
     paddle.height = 160
+    paddle.ceiling = 0
+    paddle.floor = 440
+    paddle.ceiling_collide = false
+    paddle.floor_collide = false
+    paddle.ceiling_collide2 = false
+    paddle.floor_collide2 = false
 end
 
 function ball_move_x(move)
@@ -38,6 +48,7 @@ function ball_move_x(move)
         -- Makes Ball Go Right
         if ball.x == ball.l_wall then
             ball.wall_collide = true
+            scores.p2 = scores.p2 + 1
             ball.left = false
             print("Left Wall Touched.")
         -- Moves Ball Left
@@ -51,6 +62,7 @@ function ball_move_x(move)
         if ball.x == ball.r_wall then
             ball.wall_collide = true
             ball.left = true
+            scores.p1 = scores.p1 + 1
             print("Right Wall Touched.")
         else
         -- Moves Ball Right
@@ -91,24 +103,36 @@ function ball_move_y(move)
     end
 end
 
-function paddle_move()
+function paddle_move(move)
+    if paddle.y2 == paddle.floor then
+        paddle.floor_collide2 = true
+end
 end
 
 function player_paddle(keychange)
     -- Player Moved Paddle Down
     if love.keyboard.isDown("down") then
         paddle.y1 = paddle.y1 + keychange
+        if paddle.y1 > 440 then
+            print("Player Paddle Floor collide!")
+            paddle.floor_collide = true
+            paddle.y1 = paddle.floor
+        else
+            paddle.floor_collide = false
+        end
     end
-
     -- Player Moved Paddle Up
     if love.keyboard.isDown("up") then
         paddle.y1 = paddle.y1 - keychange
+        if paddle.y1 < 0 then
+            print("Player Paddle Ceiling collide!")
+            paddle.ceiling_collide = true
+            paddle.y1 = paddle.ceiling
+        end
     end
 end
 
 function love.update(dt)
-    orig_paddle_y1 = paddle.y1
-    
     -- Allow Player To Move Paddle
     player_paddle(3.5)
 
@@ -120,7 +144,9 @@ end
 function love.draw()
     --love.graphics.circle("fill", 300, 300, 10, 10)
     love.graphics.draw(paddle.image, paddle.x1, paddle.y1)
-    love.graphics.draw(paddle.image, paddle.x2, ball.y - ((paddle.height / 2) - ball.height))
+    love.graphics.draw(paddle.image, paddle.x2, paddle.y2)
+    --love.graphics.draw(paddle.image, paddle.x2, ball.y - ((paddle.height / 2) - ball.height))
     --love.graphics.draw(paddle)
     love.graphics.draw(ball.image, ball.x, ball.y) 
+    love.graphics.print("[ "..scores.p1.." :: "..scores.p2.." ]", (width / 2), (height - 20))
 end

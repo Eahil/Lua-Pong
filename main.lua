@@ -16,6 +16,10 @@ function love.load()
 end
 
 function ball_move()
+    for i = 1, 5 do
+        ball.x = ball.x + 1
+        ball.y = ball.y - 1
+    end
 end
 
 function love.update(dt)
@@ -28,24 +32,21 @@ function love.update(dt)
     end
 
     -- Player Moved Paddle Up
-    if love.keyboard.isDown("down") then
-        paddle.y1 = paddle.y1 + keychange
-    end
     if love.keyboard.isDown("up") then
         paddle.y1 = paddle.y1 - keychange
     end
 
     -- Increase Ball's x and y
     -- TODO: Replace with ball_x() and ball_y()
-    if ball.x ~= 780 then
+    if ball.x < 780 then
     ball.x = ball.x + 1
-    elseif ball.x == 780 then
+    elseif ball.x >= 780 then
     ball.x = ball.x - 1
     end
 
     --ball.y = ball.y + 1
     s = 600
-    if paddle.y1 ~= s then
+   --[[ if paddle.y1 ~= s then
         print("\nPaddle 1 x: "..paddle.x1.." Paddle 1 y: "..paddle.y1)
         print("\nPaddle 2 x: "..paddle.x1.." Paddle 2 y: "..paddle.y1)
         print("Ball x: "..ball.x.." Ball y: "..ball.y)
@@ -53,8 +54,8 @@ function love.update(dt)
     elseif paddle.y1 == s then
         print("Capped!")
         love.event.quit()
-    else
-    end
+    else 
+    end ]]
 end
     
 function love.draw()

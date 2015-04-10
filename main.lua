@@ -5,6 +5,10 @@ function love.load()
     ball.image = love.graphics.newImage("ball.png")
     ball.x = 380
     ball.y = 10
+    ball.left = true
+    ball.right = true
+    ball.up = true
+    ball.down = true
 
     -- Paddle 
     paddle = {}
@@ -16,9 +20,17 @@ function love.load()
 end
 
 function ball_move()
-    for i = 1, 5 do
+    if ball.left then
+        if ball.x == 0 then
+            ball.dr = false
+        else
+            ball.x = ball.x - 1
+            print("Ball Moves Left.")
+            print(ball.x)
+        end
+    elseif
         ball.x = ball.x + 1
-        ball.y = ball.y - 1
+        print("Ball Moves Right.")
     end
 end
 
@@ -36,26 +48,8 @@ function love.update(dt)
         paddle.y1 = paddle.y1 - keychange
     end
 
-    -- Increase Ball's x and y
-    -- TODO: Replace with ball_x() and ball_y()
-    if ball.x < 780 then
-    ball.x = ball.x + 1
-    elseif ball.x >= 780 then
-    ball.x = ball.x - 1
-    end
-
-    --ball.y = ball.y + 1
-    s = 600
-   --[[ if paddle.y1 ~= s then
-        print("\nPaddle 1 x: "..paddle.x1.." Paddle 1 y: "..paddle.y1)
-        print("\nPaddle 2 x: "..paddle.x1.." Paddle 2 y: "..paddle.y1)
-        print("Ball x: "..ball.x.." Ball y: "..ball.y)
-    --elseif paddle.x1 == 30 then
-    elseif paddle.y1 == s then
-        print("Capped!")
-        love.event.quit()
-    else 
-    end ]]
+    -- Move The Ball
+    ball_move(true)
 end
     
 function love.draw()

@@ -6,10 +6,6 @@
 
 - Game doesn't work!
 
-** Skipping Help Messages **
-
-- If it is your desire to skip the help message, such as the one telling you to use "CTRL-C to exit each program", simply run the "skip help" option.
-
 ** Current Version **
 0.0
 
